@@ -47,5 +47,8 @@
     "lint-staged": "^8.1.5",
     "pre-commit": "^1.2.2",
     "prettier": "^1.17.0"
+  },
+  "dependencies": {
+    "inquirer": "^6.3.1"
   }
 }
