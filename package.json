@@ -1,0 +1,51 @@
+{
+  "name": "chatbot-case",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node bin/dev",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && mkdir dist && ./node_modules/.bin/babel src -s -d dist --ignore 'src/**/*.test.js'",
+    "production": "npm run build && node bin/production",
+    "lint:staged": "lint-staged",
+    "prettify": "./node_modules/.bin/prettier --write 'src/**/*.{js,json}' '*.{js,json}'"
+  },
+  "lint-staged": {
+    "linters": {
+      "*.{js,json}": [
+        "./node_modules/.bin/prettier --write",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "./dist/*"
+    ]
+  },
+  "pre-commit": [
+    "lint:staged",
+    "test"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muceres/chatbot-case.git"
+  },
+  "author": "muceres",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/muceres/chatbot-case/issues"
+  },
+  "homepage": "https://github.com/muceres/chatbot-case#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/register": "^7.4.4",
+    "babel-jest": "^24.7.1",
+    "jest": "^24.7.1",
+    "lint-staged": "^8.1.5",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.17.0"
+  }
+}
