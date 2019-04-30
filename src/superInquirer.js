@@ -12,7 +12,18 @@ const repeatedPrompt = async function repeatedPrompt(question) {
   );
 
   if (!isAnswerValide) {
-    console.log("\x1b[31m", "Oups ! Il y a une erreur dans la saisie :/");
+    //TODO : extract the two ifs into a function
+    const basicMessage = "Oups ! Il y a une erreur dans la saisie :/ \n";
+    if (question[0].type === "number")
+      console.log(
+        "\x1b[31m",
+        `${basicMessage}La valeur attendu est nombre positif`
+      );
+    if (question[0].type === "input")
+      console.log(
+        "\x1b[31m",
+        `${basicMessage}La valeur attendue ne doit pas être vide`
+      );
     return repeatedPrompt(question);
   }
   return answerQuestion;
