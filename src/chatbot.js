@@ -19,7 +19,6 @@ export const chatbot = async function() {
   const employeeQuestions = createEmployeeQuestions(
     gAnswers.number_of_employees
   );
-
   let answersEmployeeQuestions = await superInquirer.prompt(employeeQuestions);
   gAnswers.employees = answersEmployeeQuestions;
 

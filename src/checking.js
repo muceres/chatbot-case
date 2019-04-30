@@ -1,10 +1,11 @@
+export const isNumber = value =>
+  !isNaN(value) && parseInt(Number(value)) && value >= 0 ? true : false;
+
 export const checkAnswer = function(type, field) {
   switch (type) {
     case "number":
       // TODO :: extrate the condition into a checkNumber() function
-      return !isNaN(field) && parseInt(Number(field)) && field >= 0
-        ? true
-        : false;
+      return isNumber(field);
       break;
     case "input":
       return typeof field !== "undefined" && field !== "" ? true : false;
