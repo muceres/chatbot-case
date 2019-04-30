@@ -61,7 +61,7 @@ export const createTruckQuestions = function createTruckQuestions(
       message: `Quelle est le type du camion ${number_of_trucks} ?`
     },
     {
-      type: "input",
+      type: "number",
       name: `truck_volume_${number_of_trucks}`,
       message: `Quelle est le volume en m³ du camion ${number_of_trucks} ?`
     }
