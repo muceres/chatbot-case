@@ -26,3 +26,11 @@ For development purpose, you can start directly the project on your machine usin
 ```
 npm run production
 ```
+
+## Test
+
+The tests are made with jest. To run the test use the following command :
+
+```
+npm test
+```
