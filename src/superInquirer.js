@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
 import { checkAnswer } from "./checking";
-
+import { errorByType } from "./errors";
 const superInquirer = {};
 
 const repeatedPrompt = async function repeatedPrompt(question) {
@@ -12,18 +12,7 @@ const repeatedPrompt = async function repeatedPrompt(question) {
   );
 
   if (!isAnswerValide) {
-    //TODO : extract the two ifs into a function
-    const basicMessage = "Oups ! Il y a une erreur dans la saisie :/ \n";
-    if (question[0].type === "number")
-      console.log(
-        "\x1b[31m",
-        `${basicMessage}La valeur attendu est nombre positif`
-      );
-    if (question[0].type === "input")
-      console.log(
-        "\x1b[31m",
-        `${basicMessage}La valeur attendue ne doit pas être vide`
-      );
+    console.log(errorByType(question[0].type));
     return repeatedPrompt(question);
   }
   return answerQuestion;

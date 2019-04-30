@@ -4,7 +4,6 @@ export const isNumber = value =>
 export const checkAnswer = function(type, field) {
   switch (type) {
     case "number":
-      // TODO :: extrate the condition into a checkNumber() function
       return isNumber(field);
       break;
     case "input":
