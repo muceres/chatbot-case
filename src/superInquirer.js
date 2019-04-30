@@ -30,11 +30,18 @@ const repeatedPrompt = async function repeatedPrompt(question) {
 };
 
 superInquirer.prompt = async function superInquirer(questions) {
-  let copiedQuestion = [...questions];
-  let answer = await repeatedPrompt([copiedQuestion.shift()]);
+  let answer = await repeatedPrompt(
+    // create a copy of the array with the first elem only
+    questions.filter((question, index) => index === 0)
+  );
 
   if (questions.length > 1) {
-    answer = { ...answer, ...(await superInquirer(copiedQuestion)) };
+    answer = {
+      ...answer,
+      ...(await superInquirer(
+        questions.filter((question, index) => index !== 0)
+      ))
+    };
   }
 
   return answer;
