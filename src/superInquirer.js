@@ -1,6 +1,7 @@
 import inquirer from "inquirer";
 import { checkAnswer } from "./checking";
 import { errorByType } from "./errors";
+import chalk from "chalk";
 const superInquirer = {};
 
 const repeatedPrompt = async function repeatedPrompt(question) {
@@ -12,7 +13,7 @@ const repeatedPrompt = async function repeatedPrompt(question) {
   );
 
   if (!isAnswerValide) {
-    console.log(errorByType(question[0].type));
+    console.log(chalk.red.bold(errorByType(question[0].type)));
     return repeatedPrompt(question);
   }
   return answerQuestion;

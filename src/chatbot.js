@@ -1,4 +1,5 @@
 import inquirer from "inquirer";
+import chalk from "chalk";
 import superInquirer from "./superInquirer";
 import {
   firstQuestions,
@@ -35,13 +36,13 @@ export const chatbot = async () => {
   finalAnswers.trucks = answersTruckQuestions;
   finalAnswers = await redisClient.storeObject(finalAnswers);
 
-  console.log(JSON.stringify(finalAnswers, null, 2));
+  console.log(chalk.green.bold(JSON.stringify(finalAnswers, null, 2)));
 
   // Last question
   let answersLastQuestions = await superInquirer.prompt(lastQuestions);
 
   if (answersLastQuestions.valide_answers === "oui") {
-    console.log("Merci d'avoir utilisé Trusk !");
+    console.log(chalk.white.bold("Merci d'avoir utilisé Trusk !"));
     redisClient.quit();
   } else {
     finalAnswers = await redisClient.storeObject();
