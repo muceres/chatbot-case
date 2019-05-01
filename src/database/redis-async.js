@@ -1,7 +1,11 @@
 import { createClient } from "redis";
 import { promisify } from "util";
+import dotenv from "dotenv";
 
-const client = createClient();
+const client = createClient(
+  process.env.REDIS_PORT || 6379,
+  process.env.REDIS_HOST || "127.0.0.1"
+);
 
 let redisClient = {};
 
