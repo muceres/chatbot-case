@@ -11,7 +11,7 @@ export const firstQuestions = [
   },
   {
     type: "number",
-    name: "number_of_employees",
+    name: "nb_of_employees",
     message: "Combien d'employées à la société ?"
   }
 ];
@@ -19,7 +19,7 @@ export const firstQuestions = [
 export const secondQuestion = [
   {
     type: "number",
-    name: "number_of_trucks",
+    name: "nb_of_trucks",
     message: "Combien de camions à la société ?"
   }
 ];

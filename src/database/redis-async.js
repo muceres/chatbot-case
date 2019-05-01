@@ -13,6 +13,8 @@ redisClient.on = promisify(client.on).bind(client);
 redisClient.get = promisify(client.get).bind(client);
 redisClient.set = promisify(client.set).bind(client);
 redisClient.quit = promisify(client.quit).bind(client);
+redisClient.exists = promisify(client.exists).bind(client);
+redisClient.del = promisify(client.del).bind(client);
 
 redisClient.storeObject = async (object = {}, key = "storage") => {
   const str = await redisClient
