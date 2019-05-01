@@ -11,7 +11,8 @@ import {
 } from "./questions";
 import redisClient from "./database/redis-async";
 
-const resume = async isOK => {
+// End the questions be quitting the or by starting another round
+const conclude = async isOK => {
   if (isOK === "oui") {
     console.log(chalk.white.bold("Merci d'avoir utilisé Trusk !"));
     redisClient.del("storage").then(() => redisClient.quit());
@@ -47,5 +48,5 @@ export const chatbot = async () => {
   console.log(chalk.green.bold(JSON.stringify(answers, null, 2)));
   let answersLastQuestions = await superInquirer.prompt(lastQuestions);
 
-  resume(answersLastQuestions.valide_answers);
+  conclude(answersLastQuestions.valide_answers);
 };
