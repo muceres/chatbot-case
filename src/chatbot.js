@@ -7,39 +7,44 @@ import {
   createEmployeeQuestions,
   createTruckQuestions
 } from "./questions";
+import redisClient from "./database/redis-async";
 
-let gAnswers = {};
+export const chatbot = async () => {
+  let finalAnswers = await redisClient.storeObject();
 
-export const chatbot = async function() {
   // Main employees questions
   let answersFirstQuestions = await superInquirer.prompt(firstQuestions);
-  gAnswers = answersFirstQuestions;
+  finalAnswers = await redisClient.storeObject(answersFirstQuestions);
 
   // Questions by employees
   const employeeQuestions = createEmployeeQuestions(
-    gAnswers.number_of_employees
+    finalAnswers.number_of_employees
   );
   let answersEmployeeQuestions = await superInquirer.prompt(employeeQuestions);
-  gAnswers.employees = answersEmployeeQuestions;
+  finalAnswers.employees = answersEmployeeQuestions;
+  finalAnswers = await redisClient.storeObject(finalAnswers);
 
   // Main truck question
   let answersSecondQuestions = await superInquirer.prompt(secondQuestion);
-  gAnswers.number_of_trucks = answersSecondQuestions.number_of_trucks;
+  finalAnswers.number_of_trucks = answersSecondQuestions.number_of_trucks;
+  finalAnswers = await redisClient.storeObject(finalAnswers);
 
   // Questions by trucks
-  const truckQuestions = createTruckQuestions(gAnswers.number_of_trucks);
+  const truckQuestions = createTruckQuestions(finalAnswers.number_of_trucks);
   let answersTruckQuestions = await superInquirer.prompt(truckQuestions);
-  gAnswers.trucks = answersTruckQuestions;
+  finalAnswers.trucks = answersTruckQuestions;
+  finalAnswers = await redisClient.storeObject(finalAnswers);
 
-  console.log(JSON.stringify(gAnswers, null, 2));
+  console.log(JSON.stringify(finalAnswers, null, 2));
 
   // Last question
   let answersLastQuestions = await superInquirer.prompt(lastQuestions);
 
   if (answersLastQuestions.valide_answers === "oui") {
     console.log("Merci d'avoir utilisé Trusk !");
+    redisClient.quit();
   } else {
-    gAnswers = {};
+    finalAnswers = await redisClient.storeObject();
     chatbot();
   }
 };
